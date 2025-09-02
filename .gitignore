@@ -1,0 +1,108 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+.nyc_output
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cache directories
+.npm
+.eslintcache
+.stylelintcache
+.cache/
+.parcel-cache/
+.vite/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Editor directories and files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*~
+
+# Vue.js specific
+*.vue.swp
+*.vue~
+
+# Testing
+/cypress/videos/
+/cypress/screenshots/
+/tests/e2e/videos/
+/tests/e2e/screenshots/
+
+# TypeScript
+*.tsbuildinfo
+
+# Temporary files
+tmp/
+temp/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Local development
+*.local
+
+# Firebase
+.firebase/
+
+# Storybook
+.out
+.storybook-out
+storybook-static
+
+# Project specific (add your own patterns here)
+# uploads/
+# public/uploads/
