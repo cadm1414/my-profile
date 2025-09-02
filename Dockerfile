@@ -1,8 +1,10 @@
-# Usar Node.js 20 LTS
-FROM node:20-alpine as build-stage
+# =========================
+# Etapa de build
+# =========================
+FROM node:20-alpine AS build-stage
 
-# Instalar herramientas de build
-RUN apk add --no-cache python3 make g++
+# Instalar dependencias del sistema necesarias para compilaciones nativas
+RUN apk add --no-cache python3 make g++ libc-dev linux-headers
 
 # Establecer directorio de trabajo
 WORKDIR /app
@@ -10,27 +12,19 @@ WORKDIR /app
 # Copiar archivos de dependencias
 COPY package*.json ./
 
-# Limpiar cache de npm y instalar dependencias
-RUN npm cache clean --force
-RUN npm ci --silent
-
-# Verificar que las dependencias estén instaladas
-RUN npm list --depth=0
+# Instalar dependencias (más seguro que npm ci en Alpine)
+RUN npm install --silent
 
 # Copiar código fuente
 COPY . .
 
-# Verificar que vite esté disponible
-RUN npx vite --version
-
 # Construir la aplicación para producción
 RUN npm run build
 
-# Verificar que la carpeta dist se haya creado
-RUN ls -la dist/
-
+# =========================
 # Etapa de producción con Nginx
-FROM nginx:1.25-alpine as production-stage
+# =========================
+FROM nginx:1.25-alpine AS production-stage
 
 # Crear usuario nginx si no existe
 RUN addgroup -g 101 -S nginx || true
@@ -46,10 +40,13 @@ COPY nginx.conf /etc/nginx/nginx.conf
 RUN chown -R nginx:nginx /usr/share/nginx/html
 RUN chmod -R 755 /usr/share/nginx/html
 
-# Exponer puerto 8080 (requerido por Fly.io)
+# Instalar wget para healthcheck
+RUN apk add --no-cache wget
+
+# Exponer puerto 8080 requerido por Fly.io
 EXPOSE 8080
 
-# Health check
+# Healthcheck de Fly.io
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
 
