@@ -1,7 +1,8 @@
 import axios from "axios";
 import { authService } from '@/services/authService'
 
-const API_BASE_URL = "http://localhost:8000/api/v1/identity";
+// Usar variable de entorno para la URL base
+const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/identity`;
 
 export class IdentityService {
 

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:8000/api/v1/auth'
+const API_BASE_URL = 'https://devprofile-api-z0w7.onrender.com/api/v1/auth'
 
 export class AuthService {
 
